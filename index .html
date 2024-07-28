@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>处理名字</title>
+  </head>
+  <body>
+    <h2>输入名字，每两个名字之间用逗号和空格分隔，并删除数字和标点符号</h2>
+
+    <!-- 输入框 -->
+    <textarea
+      id="inputNames"
+      placeholder="请输入名字，用空格、逗号或换行分隔"
+    ></textarea>
+
+    <!-- 按钮，点击后触发处理名字的操作 -->
+    <button onclick="processNames()">处理名字</button>
+
+    <!-- 显示结果的段落 -->
+    <p id="outputNames"></p>
+
+    <script>
+      // 当按钮被点击时执行的函数
+      function processNames() {
+        // 获取输入框的值
+        var input = document.getElementById("inputNames").value;
+
+        // 使用正则表达式移除所有数字和标点符号
+        var cleanedInput = input.replace(
+          /[\d,.?!;:'"()\[\]{}<>@#$%^&*\-+=~\/\\]/g,
+          ""
+        );
+
+        // 使用逗号加空格分隔名字，但先替换掉已有的逗号和换行符，确保只使用空格分隔
+        var namesArray = cleanedInput
+          .replace(/[\n,]/g, " ")
+          .split(" ")
+          .filter(Boolean);
+
+        // 将名字数组转换为以逗号和空格分隔的字符串
+        var output = namesArray.join(", ");
+
+        // 将结果设置到显示结果的段落中
+        document.getElementById("outputNames").textContent = output;
+      }
+    </script>
+  </body>
+</html>
